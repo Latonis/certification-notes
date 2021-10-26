@@ -95,4 +95,3 @@
 				- If you need 5 instances, rather than a single request of 5, request 1 by 1.
 				- If urgent, submit a request for a different instance type now, which can be resized later.
 				- Also, can request the EC2 instance in a different AZ.
-
