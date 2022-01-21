@@ -1860,7 +1860,68 @@ This report summarizes all the schema conversion tasks and details the action it
 	- Inspects EBS volumec onfig for underused volumes. Create a snapshot of the udnerused volumes and delete them to reduce your costs.
 	- Utilization can check Amazon Redshift for underused clusters. You can create a snapshot of the cluster and shut it down. You can also choose to downsize the cluster.
 ## CloudWatch Application Insights
+- What can we use to observe and head off problems with our applications and underlying AWS resources? Application Insights.
+- Customize the monitors for your application resources to analyze data for signs of problems with your applications.
+- Sagemaker powers Application Insights, to provide automated dashboardsa that show potential problems with monitored applications.
+### How does it work?
+- With Application Insights, your applications that use Amazon EC3 instances along with other AWS application resources can be monitored.
+- Monitors .NET and SQL Server Applications
+	- Application discovery and configuration
+	- Data preprocessing
+	- Intelligent Problem detection
+### Database Engines
+- Microsoft SQL Server
+- MySQL
+- DynamoDB
 ## Advanced Audit Logging
+- Amazon Aurora uses Advanced Auditing to record and audit database events such as connections, disconnections, tables queried, or types of queries issued on an Aurora MySQL DB cluster.
+- Audit log files are comma-delimited, and include the following information in rows:
+	- timestamp, serverhost, username, host, connectionid, queryid, operation, database, object
+### Enabling Logging
+- You need to enable the Advanced Auditing parameters on the associated custom DB cluster parameter group.
+	- Create a custom DB cluster parameter group.
+	- Modify the parameters for auditing
+	- Modify the cluster to associate the new custom DB parameter group with your Aurora MySQL DB cluster
+- You can then publish the Advanced Auditing logs to CloudWatch
+	- In the RDS console, select the Aurora MySQL DB cluster for which you want to export log data to CloudWatch.
+### Working with Logs
+- `server_audit_logging`: use this parameter to enable or disable advanced auditing
+- `server_audit_events`: use this to specify what events to log
+- Use `server_audit_excl_users` and `server_audit_incl_users` parameters to specify who gets audited
+- Set those parameters in the parameter group used by your DB cluster to configure Advanced Auditing
+- `server_audit_events`: contains the comma-delimited list of events to log
+- You can log any combination of the following events:
+	- CONNECT
+	- QUERY
+	- QUERY_DCL
+	- QUERY_DDL
+	- QUERY_DML
+	- Table
 ## Deploying with CloudFormation
+- CLoudFormation can be used to programatically define and deploy AWS resources via the concept of IaC
+- Many resources such as EC2, S3, Load Balancers, Auto Scaling groups, and yes, RDS databases can be defined and deployed in Cloud Formation
+- The stack contains the implemented resources (the final infra)
+- Infrastructure as code promotes code resuse, and also portability which makes CloudFormation a great tool for DR.
+- If resources are created within CloudFormation, it is important to update them within Cloud Formation
+- Updating resources outside of CloudFormation introduces stack drift.
+- Think of DR, if using CloudFormation templates for DR, the template must accurately represent the existing resources
+- Change Sets meet the best practice of updating resources in CloudFormation
+- Additionally, Change Sets allow you to preview how proposed changes to a stack might impact your running resources.
+### Resource Import
+- If you created an AWS resource outside of CloudFormation management, you can bring this existing resources into AWS CloudFormation management using resource import.
+- During an import operation, you create a change set that imports your existing resources into a stack or creates a new stack from your existing resources.
+### Best Practices with CloudFormation
+- Planning and Organizing
+	- Organize your stacks by lifecycle and ownership
+	- Use cross-stack references to export shared resources
+	- Use IAM to control access
+	- Reuse templates to replicate stacks in multiple environments
+	- Use nested stacks to resuse common template patterns
+- Creating Templates:
+	- Do not embed credentials in your templates
+	- Validate templates before using them
+- Managing Stacks:
+	- Manage all stack resources through AWS CloudFormation
+	- Create change sets before updating your stacks
 # Conclusion
 ## Review Checklist
